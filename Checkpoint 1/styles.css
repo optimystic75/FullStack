@@ -1,0 +1,104 @@
+.gridOne {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #eeeded;
+    width: 500px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.gridTwo {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    width: 500px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.gridTwo > .good p{
+    background-color:red;
+}
+
+.gridTwo > .vibes p{
+    background-color: blue;
+}
+
+.gridTwo > .only p{
+    background-color: yellow;
+}
+
+
+.gridThree {
+    display: grid;
+    width: 500px;
+    height: 300px;
+    margin-top: 30px;
+    margin-left: 30px;
+    background-color: #eeeded;
+    grid-template-rows: 1fr 3fr;
+}
+
+.gridThree img {
+    width: 500px;
+    height: 225px;
+    object-fit: cover; 
+}
+
+.gridThree p {
+    margin-left: 20px;
+}
+
+
+.gridFour {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    background-color: green;
+    width: 500px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#my-texts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.gridFive {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    width: 500px;
+    margin-left: 30px;
+    margin-top: 30px;
+    background-color: #eeeded;
+}
+
+.photos {
+    display: grid;
+    width: 500px;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    margin-bottom: 10px;
+}
+
+.photos img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.sentence-five {
+    margin-left: 20px;
+}
+
+.gridSix {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    background-color: #eeeded;
+    width: 500px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.sentence-six {
+    font-family: 'Poor Story';
+}
