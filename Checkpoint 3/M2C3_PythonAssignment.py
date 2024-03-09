@@ -59,6 +59,17 @@ print(names_list)
 
 #Exercise_7
 
+#string="este coche es mio"
+
+#first_word = string.split()[0]  #Obtiene la primera palabra usando split()
+
+#rest_of_string = string[len(first_word):]  #Obtiene el resto de la cadena excluyendo la primera palabra
+
+#new_string = first_word.upper() + rest_of_string
+# Convierte la primera palabra a mayúsculas y concatena con el resto de la cadena
+
+print(new_string)
+
 my_sentence =  "Courage is a love affair with the unknown"
 
 all_words = my_sentence.split()
