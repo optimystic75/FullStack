@@ -1,23 +1,55 @@
-// MENU BOTTEGA DINER
-
-
-// Definición del menú
 const menu = {
-    primeros: [
-        { nombre: "Ensalada", precio: 5 },
-        { nombre: "Sopa", precio: 4 },
-        { nombre: "Consome", precio: 6 },
-    ],
-    segundos: [
-        { nombre: "Pollo", precio: 10 },
-        { nombre: "Pasta", precio: 8 },
-        { nombre: "Pescado", precio: 9 },
-    ],
-    postres: [
-        { nombre: "Tarta", precio: 7 },
-        { nombre: "Fruta", precio: 3 },
-        { nombre: "Yogur", precio: 5 },
-    ]
+    desayuno: {
+        primero: [
+            { nombre: "Huevos Revueltos", precio: 5 },
+            { nombre: "Bacon", precio: 6.50},
+            { nombre: "Salchichas", precio: 7.25 }
+        ],
+        segundo: [
+            { nombre: "Tostadas", precio: 3.25 },
+            { nombre: "Croissant", precio: 4.50 },
+            { nombre: "Bagels", precio: 4.50 }
+        ],
+        postre: [
+            { nombre: "Cafe o Té", precio: 2.75 },
+            { nombre: "Zumo", precio: 3.25 },
+            { nombre: "Batido", precio: 4 }
+        ]
+    },
+    comida: {
+        primero: [
+            { nombre: "Ensalada César", precio: 5.75 },
+            { nombre: "Sopa de Tomate", precio: 4.50 },
+            { nombre: "Crema de Verdura", precio: 4.50 }
+        ],
+        segundo: [
+            { nombre: "Pasta Alfredo", precio: 10 },
+            { nombre: "Lasagna Vegetal", precio: 7.50 },
+            { nombre: "Pollo al Horno", precio: 8.25 }
+        ],
+        postre: [
+            { nombre: "Tarta de Chocolate", precio: 5.25 },
+            { nombre: "Hojaldre con Crema", precio: 3.25 },
+            { nombre: "Panna Cotta", precio: 7.50 }
+        ]
+    },
+    cena: {
+        primero: [
+            { nombre: "Consome de Verduras", precio: 4.75 },
+            { nombre: "Esparragos Verdes", precio: 5.50 },
+            { nombre: "Ensalada Nicoise", precio: 6 }
+        ],
+        segundo: [
+            { nombre: "Pescado al Papillote", precio: 9.25 },
+            { nombre: "Calamares en su Tinta", precio: 7.50 },
+            { nombre: "Risotto de Champiñones", precio: 7.50 }
+        ],
+        postre: [
+            { nombre: "Fruta Fresca", precio: 2.75 },
+            { nombre: "Yogurt", precio: 1.25 },
+            { nombre: "Creme Bruleé", precio: 4.50 }
+        ]
+    }
 };
 
 const randomComments = [
@@ -29,81 +61,93 @@ const randomComments = [
     "Tenemos platos mejores que este..."
 ];
 
-// Función para mostrar el menú
+function mostrarMenu(categoria) {
+    let mensaje = `¡Bienvenido a Bottega Diner!\n\nMenú de ${categoria.toUpperCase()}:\n`;
 
-function mostrarMenu() {
-    let mensaje = "Bienvenido a Bottega Diner:\n";
-
-    mensaje += "\nPrimeros\n";
-
-    for (let i = 0; i < menu.primeros.length; i++) {
-        mensaje += `${i + 1}. ${menu.primeros[i].nombre} - €${menu.primeros[i].precio}\n`;
-    }
-
-    mensaje += "\nSegundos:\n";
-
-    for (let i = 0; i < menu.segundos.length; i++) {
-        mensaje += `${i + 1}. ${menu.segundos[i].nombre} - €${menu.segundos[i].precio}\n`;
-    }
-
-    mensaje += "\nPostres:\n";
-
-    for (let i = 0; i < menu.postres.length; i++) {
-        mensaje += `${i + 1}. ${menu.postres[i].nombre} - €${menu.postres[i].precio}\n`;
+    for (const tipo in menu[categoria]) {
+        mensaje += `\n${tipo.toUpperCase()}:\n`;
+        for (let i = 0; i < menu[categoria][tipo].length; i++) {
+            mensaje += `${i + 1}. ${menu[categoria][tipo][i].nombre} - €${menu[categoria][tipo][i].precio}\n`;
+        }
     }
 
     alert(mensaje);
 }
 
-
-// Función para obtener la elección del usuario
-
-function obtenerEleccion(categoria) {
+function obtenerEleccion(categoria, tipo) {
     let eleccion;
+    let platos = menu[categoria][tipo];
+    let mensaje = `Elija una opción de ${tipo} en ${categoria}:\n`;
+
+    for (let i = 0; i < platos.length; i++) {
+        mensaje += `${i + 1}. ${platos[i].nombre} - €${platos[i].precio}\n`;
+    }
+
     while (true) {
-        eleccion = prompt(`Elija una opción de ${categoria} (1, 2 o 3):`);
+        eleccion = prompt(mensaje);
         if (eleccion === '1' || eleccion === '2' || eleccion === '3') {
             break;
         } else {
             alert("Opción inválida. Por favor, elija 1, 2 o 3.");
         }
     }
+
     return parseInt(eleccion) - 1;
 }
-
-// Función para obtener comentario aleatorio
 
 function getRandomFoodComment() {
     const randomIndex = Math.floor(Math.random() * randomComments.length);
     return randomComments[randomIndex];
 }
 
-// Mostrar el menú al usuario
-mostrarMenu();
+function obtenerMenuPorHora() {
+    while (true) {
+        let hora = prompt("Por favor, introduzca la hora actual (0-23):");
+        hora = parseInt(hora);
 
-// Obtener elección para primeros
+        if (isNaN(hora) || hora < 0 || hora > 23) {
+            alert("Hora inválida. Por favor, introduzca una hora entre 0 y 23.");
+        } else {
+            if (hora >= 6 && hora < 12) {
+                return "desayuno";
+            } else if (hora >= 12 && hora < 18) {
+                return "comida";
+            } else if (hora >= 18 && hora < 23) {
+                return "cena";
+            } else {
+                alert("Lo siento, nuestra cocina está cerrada en este momento.");
+                return null;
+            }
+        }
+    }
+}
 
-let eleccionPrimeros = obtenerEleccion("Primeros");
-let platoPrimero = menu.primeros[eleccionPrimeros];
-alert(`Has elegido ${platoPrimero.nombre}. ${getRandomFoodComment()} Precio: €${platoPrimero.precio}`);
+let categoria = obtenerMenuPorHora();
 
-// Obtener elección para segundos
+if (categoria) {
+    mostrarMenu(categoria);
 
-let eleccionSegundos = obtenerEleccion("Segundos");
-let platoSegundo = menu.segundos[eleccionSegundos];
-alert(`Has elegido ${platoSegundo.nombre}. ${getRandomFoodComment()} Precio: €${platoSegundo.precio}`);
+    let eleccionPrimero = obtenerEleccion(categoria, "primero");
+    let platoPrimero = menu[categoria].primero[eleccionPrimero];
+    let nombrePrimero = platoPrimero.nombre;
+    let precioPrimero = platoPrimero.precio;
+    alert(`Has elegido ${nombrePrimero}. ${getRandomFoodComment()} Precio: €${precioPrimero}`);
 
-// Obtener elección para postres
+    let eleccionSegundo = obtenerEleccion(categoria, "segundo");
+    let platoSegundo = menu[categoria].segundo[eleccionSegundo];
+    let nombreSegundo = platoSegundo.nombre;
+    let precioSegundo = platoSegundo.precio;
+    alert(`Has elegido ${nombreSegundo}. ${getRandomFoodComment()} Precio: €${precioSegundo}`);
 
-let eleccionPostres = obtenerEleccion("Postres");
-let platoPostre = menu.postres[eleccionPostres];
-alert(`Has elegido ${platoPostre.nombre}. ${getRandomFoodComment()} Precio: €${platoPostre.precio}`);
+    let eleccionPostre = obtenerEleccion(categoria, "postre");
+    let platoPostre = menu[categoria].postre[eleccionPostre];
+    let nombrePostre = platoPostre.nombre;
+    let precioPostre = platoPostre.precio;
+    alert(`Has elegido ${nombrePostre}. ${getRandomFoodComment()} Precio: €${precioPostre}`);
 
-// Calcular y mostrar el precio total
-
-let precioTotal = platoPrimero.precio + platoSegundo.precio + platoPostre.precio;
-alert(`El precio total de tu comida es: €${precioTotal}`);
-
+    let precioTotal = precioPrimero + precioSegundo + precioPostre;
+    alert(`TU FACTURA:\n\n* Primero: ${nombrePrimero} - €${precioPrimero}\n* Segundo: ${nombreSegundo} - €${precioSegundo}\n* Postre: ${nombrePostre} - €${precioPostre}\n\nTOTAL: €${precioTotal}`);
+}
 
 
 
